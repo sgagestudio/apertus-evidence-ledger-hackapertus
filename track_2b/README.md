@@ -1,3 +1,115 @@
+# Apertus Evidence Ledger
+
+**Track 2B — Apertus Adoption: Own Project**
+
+A local-first, auditable document assistant powered by Apertus. It retrieves evidence locally, uses Apertus for evidence sufficiency and answer synthesis, verifies every accepted citation against the retrieved source text, and emits a hash-based evidence ledger.
+
+## Judge quick start
+
+Prerequisites:
+
+- Docker;
+- an OpenAI-compatible endpoint serving the Apertus model family.
+
+Hack Apertus standard environment variables are supported directly:
+
+```bash
+export LLM_NAME=swiss-ai/Apertus-v1.5-8B
+export LLM_BASE_URL=https://your-apertus-endpoint.example/v1
+export LLM_API_KEY=...
+make run
+```
+
+From the repository root, `make run` delegates to `track_2b/Makefile`. From inside this directory, `make run` works directly.
+
+The browser UI is exposed on:
+
+```text
+http://localhost:8787
+```
+
+For a local Apertus server on the host machine, the default `LLM_BASE_URL` is `http://host.docker.internal:8000/v1`.
+
+## Input / output contract
+
+Browser input: a natural-language question.
+
+HTTP input:
+
+```http
+POST /api/ask
+Content-Type: application/json
+
+{"question":"How long are operational incident records retained after closure?"}
+```
+
+Successful output:
+
+```json
+{
+  "answer": "Operational incident records are retained for 90 days after closure.",
+  "abstain": false,
+  "citations": [
+    {
+      "chunk_id": 1,
+      "quote": "Operational incident records are retained for 90 days after closure."
+    }
+  ],
+  "ledger": {
+    "support_gate_supported": true,
+    "retrieved": [],
+    "evidence_digest_sha256": "...",
+    "model_output_digest_sha256": "..."
+  }
+}
+```
+
+Unsupported questions return `"abstain": true` and no citations.
+
+## What is verified
+
+A non-abstaining answer is accepted only when every citation:
+
+1. references a chunk actually retrieved for the current question; and
+2. contains an exact quote from that chunk.
+
+Retrieved document content is treated as untrusted data. Instructions embedded inside evidence do not supersede the system contract.
+
+Current real-model regression result:
+
+- **18 / 18** cases passed;
+- 6 grounded supported questions;
+- 6 missing-information abstentions;
+- 6 retrieved-document prompt-injection abstentions;
+- English, Spanish, German, French, Italian and Romansh;
+- **15 / 15** software tests.
+
+This is a small synthetic engineering regression suite, **not** a claim of general 100% Apertus accuracy.
+
+## Sovereign deployment
+
+The target architecture is **on-premise**, and the runtime can also be **air-gapped** when Apertus weights/runtime are provisioned locally before execution.
+
+At runtime the application requires only:
+
+- its local SQLite database;
+- local documents;
+- the configured Apertus endpoint.
+
+No hosted vector database, proprietary embedding API, telemetry service or closed model is required.
+
+## Repository map
+
+- `src/` — application code.
+- `data/` — synthetic sample and regression data.
+- `tests/` — software tests.
+- `docs/` — demo/submission notes.
+- `technical_report.md` — submission report source.
+- `Dockerfile` — judge runtime.
+- `Makefile` — required `make run` entry point.
+
+---
+
 # Track 2 B: Own Project
 
 Bring your own idea and build a working Apertus prototype that tackles a problem you care about — any domain, any use case. The project must be new, started within the hackathon period.
