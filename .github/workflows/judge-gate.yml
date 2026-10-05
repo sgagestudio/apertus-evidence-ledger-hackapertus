@@ -1,0 +1,72 @@
+name: Track 2B Judge Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unit tests
+        working-directory: track_2b
+        run: |
+          PYTHONPATH=src python -m unittest discover -s tests -v
+          python -m compileall -q src tests
+
+      - name: Build judge Docker image
+        run: make build
+
+      - name: Run container tests
+        run: make test
+
+      - name: Start fake OpenAI-compatible endpoint
+        run: |
+          python track_2b/tests/fake_openai_server.py >/tmp/fake-model.log 2>&1 &
+          echo $! >/tmp/fake-model.pid
+          for i in $(seq 1 20); do
+            if curl -sSf http://127.0.0.1:8000 >/dev/null 2>&1; then break; fi
+            sleep 0.25
+          done
+
+      - name: Exercise required make run
+        run: |
+          make run LLM_NAME=apertus-ci LLM_BASE_URL=http://host.docker.internal:8000/v1 >/tmp/app.log 2>&1 &
+          echo $! >/tmp/make-run.pid
+          for i in $(seq 1 60); do
+            if curl -sSf http://127.0.0.1:8787/health >/dev/null; then break; fi
+            sleep 0.5
+          done
+          curl -sSf http://127.0.0.1:8787/health
+          curl -sSf             -H 'content-type: application/json'             -d '{"question":"How long are operational incident records retained after closure?"}'             http://127.0.0.1:8787/api/ask > /tmp/answer.json
+          python - <<'PY'
+          import json
+          with open("/tmp/answer.json", encoding="utf-8") as f:
+              data = json.load(f)
+          assert data["abstain"] is False, data
+          assert len(data["citations"]) == 1, data
+          assert data["ledger"]["support_gate_supported"] is True, data
+          assert data["ledger"]["evidence_digest_sha256"], data
+          assert data["ledger"]["model_output_digest_sha256"], data
+          print(json.dumps({
+              "answer": data["answer"],
+              "citations": len(data["citations"]),
+              "support_gate": data["ledger"]["support_gate_supported"],
+          }))
+          PY
+
+      - name: Diagnostics
+        if: always()
+        run: |
+          cat /tmp/app.log 2>/dev/null || true
+          cat /tmp/fake-model.log 2>/dev/null || true
+          docker ps -a || true
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker rm -f aperture-evidence-ledger 2>/dev/null || true
+          if [ -f /tmp/fake-model.pid ]; then kill "$(cat /tmp/fake-model.pid)" 2>/dev/null || true; fi
