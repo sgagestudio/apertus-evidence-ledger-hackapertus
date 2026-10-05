@@ -1,6 +1,6 @@
-﻿# Hack Apertus Submission Checklist
+# Hack Apertus Submission Checklist
 
-Track: **2B â€” Apertus Adoption: Own Project**  
+Track: **2B — Apertus Adoption: Own Project**  
 Project: **Apertus Evidence Ledger**  
 Deadline: **16 October 2026, 12:00 CEST**
 
@@ -41,7 +41,7 @@ The organizer states that the final submission is handled through the Hack Apert
 - [x] Finalize the technical report PDF as `track_2b/sgagestudio_Report.pdf` (3 pages, visually inspected, under the 6-page maximum).
 - [ ] Check the organizer submission form for any newly added fields.
 - [x] Verify the submission repository is public and the judge package is readable through the public GitHub API.
-- [ ] Verify all submission links work.
+- [x] Verify public repository, report PDF, evaluation artifacts, and final-smoke paths exist in the current public repo. Demo URL remains pending until the video is published.
 - [x] Repository/report data review and tracked-file secret scan completed with 0 secret-pattern findings; synthetic evaluation/sample data only. Re-check the final video before publishing.
 - [ ] Submit through the organizer's official submission page before the deadline.
 

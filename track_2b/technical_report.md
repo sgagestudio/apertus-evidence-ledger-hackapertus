@@ -1,8 +1,8 @@
-﻿# Technical report â€” Apertus Evidence Ledger
+# Technical report — Apertus Evidence Ledger
 
-- **Track:** Track 2B â€” Apertus Adoption: Own Project
+- **Track:** Track 2B — Apertus Adoption: Own Project
 - **Event:** Hack Apertus Online 2026
-- **Team:** sgagestudio â€” solo
+- **Team:** sgagestudio — solo
 - **Demo:** to be added before final submission
 
 ## 1. Summary

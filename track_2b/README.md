@@ -1,6 +1,6 @@
-﻿# Apertus Evidence Ledger
+# Apertus Evidence Ledger
 
-**Track 2B â€” Apertus Adoption: Own Project**
+**Track 2B — Apertus Adoption: Own Project**
 
 A local-first, auditable document assistant powered by Apertus. It retrieves evidence locally, uses Apertus for evidence sufficiency and answer synthesis, verifies every accepted citation against the retrieved source text, and emits a hash-based evidence ledger.
 
@@ -29,6 +29,14 @@ http://localhost:8787
 ```
 
 For a local Apertus server on the host machine, the default `LLM_BASE_URL` is `http://host.docker.internal:8000/v1`.
+
+## Submission artifacts
+
+- [Technical report PDF](sgagestudio_Report.pdf) — 3 pages, within the 6-page limit.
+- [Current isolated regression result](data/eval/results/2026-10-06-apertus-local-isolated-regression.json) — 17/18.
+- [Current isolated holdout result](data/eval/results/2026-10-06-apertus-local-isolated-holdout.json) — 12/12.
+- [Current multi-evidence result](data/eval/results/2026-10-06-apertus-local-isolated-multievidence.json) — 3/3.
+- [Final real-model submission smoke](data/eval/results/2026-10-06-final-submission-smoke.json) — grounded answer verified and unsupported question abstained.
 
 ## Input / output contract
 
@@ -103,28 +111,28 @@ No hosted vector database, proprietary embedding API, telemetry service or close
 
 ## Repository map
 
-- `src/` â€” application code.
-- `data/` â€” synthetic sample and regression data.
-- `tests/` â€” software tests.
-- `docs/` â€” demo/submission notes.
-- `technical_report.md` â€” submission report source.
-- `Dockerfile` â€” judge runtime.
-- `Makefile` â€” required `make run` entry point.
+- `src/` — application code.
+- `data/` — synthetic sample and regression data.
+- `tests/` — software tests.
+- `docs/` — demo/submission notes.
+- `technical_report.md` — submission report source.
+- `Dockerfile` — judge runtime.
+- `Makefile` — required `make run` entry point.
 
 ---
 
 # Track 2 B: Own Project
 
-Bring your own idea and build a working Apertus prototype that tackles a problem you care about â€” any domain, any use case. The project must be new, started within the hackathon period.
+Bring your own idea and build a working Apertus prototype that tackles a problem you care about — any domain, any use case. The project must be new, started within the hackathon period.
 
 Submissions must use the Apertus model family.
 For Track 2 this means that submitted solutions must be built with Apertus. Other open-weights models can be used to support development, e.g. as automatic judges during evaluation. Their role must be clearly described in the submission report.
 
-ðŸ’¬ In case you have questions, join the conversation on [Discord](https://discord.gg/hack-apertus) or send an email to â€œhello@hackapertus.châ€
+💬 In case you have questions, join the conversation on [Discord](https://discord.gg/hack-apertus) or send an email to “hello@hackapertus.ch”
 
 ---
 
-## ðŸ”§ Resources & Tools
+## 🔧 Resources & Tools
 
 Check our resources & tools page for detailed information:
 https://hackapertus.notion.site/resources-tools
@@ -139,9 +147,9 @@ https://hackapertus.notion.site/resources-tools
 
 Whatever you build in Track 2B must be deployable in one of these three architectures:
 
-- **a) On-premise** â€” on the organisation's own infrastructure, under its own administration.
-- **b) Air-gapped** â€” with no external network connection at runtime.
-- **c) Sovereign Swiss cloud** â€” on a cloud platform operated in Switzerland, under Swiss jurisdiction, with Swiss data residency.
+- **a) On-premise** — on the organisation's own infrastructure, under its own administration.
+- **b) Air-gapped** — with no external network connection at runtime.
+- **c) Sovereign Swiss cloud** — on a cloud platform operated in Switzerland, under Swiss jurisdiction, with Swiss data residency.
 
 ---
 
@@ -151,9 +159,9 @@ The `data/` directory must not exceed 100 MB.
 
 ---
 
-## ðŸ“¦ Submission Requirements & Deliverables
+## 📦 Submission Requirements & Deliverables
 
-â—ï¸ Submissions are not handled on Devpost but via this URL only:
+❗️ Submissions are not handled on Devpost but via this URL only:
 http://hackapertus.ch/online-hack/submissions
 
 The submission must: 
@@ -193,7 +201,7 @@ Submitted datasets must comply with our guidelines for responsibly sourced datas
 
 ---
 
-## âš–ï¸ Judging Criteria
+## ⚖️ Judging Criteria
 
 1. Purposeful use of AI
 2. Technical rigour
@@ -201,7 +209,7 @@ Submitted datasets must comply with our guidelines for responsibly sourced datas
 4. Sovereign deployability
 5. Implementation feasibility
 
-Judges use a Scale 0â€“5 per dimension.
+Judges use a Scale 0–5 per dimension.
 
 ---
 
@@ -212,8 +220,8 @@ Please check our Terms & Conditions (6. What you build is open source):
 https://hackapertus.ch/terms-and-conditions
 
 ## FAQ
-ðŸ’¡ https://hackapertus.ch/faq
+💡 https://hackapertus.ch/faq
 
 ## Contact
-ðŸ’¬ In case you have questions, join the conversation on Discord or send an email to â€œhello@hackapertus.châ€
+💬 In case you have questions, join the conversation on Discord or send an email to “hello@hackapertus.ch”
 

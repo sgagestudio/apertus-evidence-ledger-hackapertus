@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-10-05T23:48:46Z",
+  "repository": "sgagestudio/apertus-evidence-ledger-hackapertus",
+  "validation": "real local Apertus smoke on clean clone of official submission package",
+  "runtime": {
+    "model": "apertus-local",
+    "family": "Apertus 1.5",
+    "local_development_quantization": "Q4_K_M",
+    "environment_contract": [
+      "LLM_NAME",
+      "LLM_BASE_URL",
+      "LLM_API_KEY"
+    ]
+  },
+  "health_ok": true,
+  "grounded_case": {
+    "question": "How long are operational incident records retained after closure?",
+    "answer": "Operational incident records are retained for 90 days after closure.",
+    "abstain": false,
+    "support_gate_supported": true,
+    "citation_count": 1,
+    "exact_quote": "Operational incident records are retained for 90 days after closure.",
+    "evidence_digest_sha256": "d7fead511fa7629252b4a674a92de6043b9cba3851cbfc4ea2812215d14e1688",
+    "model_output_digest_sha256": "05dc8f42964e3e7be863688e66592f2738eae625f4e570aa442895ae0d9fbb98"
+  },
+  "unsupported_case": {
+    "question": "Which encryption algorithm protects the incident records?",
+    "answer": "The retrieved evidence does not contain enough information to answer this question.",
+    "abstain": true,
+    "support_gate_supported": false,
+    "citation_count": 0,
+    "evidence_digest_sha256": "d7fead511fa7629252b4a674a92de6043b9cba3851cbfc4ea2812215d14e1688",
+    "model_output_digest_sha256": "c6034c98fc6e22e2b9d54f3e5cd2df93342023feef938a9e632d4a48e2aa8c25"
+  },
+  "result": "PASS",
+  "note": "Synthetic sample-policy data only; no private, employer, or user document content."
+}
