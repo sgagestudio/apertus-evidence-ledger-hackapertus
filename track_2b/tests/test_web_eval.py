@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from apertus_evidence.evaluation import load_cases
+from apertus_evidence.evaluation import load_cases, run_evaluation
 from apertus_evidence.web import INDEX_HTML, MAX_BODY_BYTES
 
 
@@ -87,6 +87,84 @@ class EvaluationDatasetTests(unittest.TestCase):
                 )
         self.assertFalse(result.passed)
         self.assertIn("rejected model output", result.reason)
+
+
+    def test_loader_accepts_multiple_required_evidence_substrings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "cases.jsonl"
+            path.write_text(
+                '{"id":"x","language":"en","source_text":"fact a fact b",'
+                '"question":"both?","required_evidence_substrings":["fact a","fact b"]}\n',
+                encoding="utf-8",
+            )
+            cases = load_cases(path)
+            self.assertEqual(
+                cases[0]["required_evidence_substrings"],
+                ["fact a", "fact b"],
+            )
+
+    def test_loader_rejects_empty_required_evidence_substrings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "cases.jsonl"
+            path.write_text(
+                '{"id":"x","language":"en","source_text":"fact",'
+                '"question":"fact?","required_evidence_substrings":[]}\n',
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                load_cases(path)
+
+
+    def test_run_evaluation_isolates_cases(self):
+        import json
+        import re
+
+        class IsolationModel:
+            model = "isolation-model"
+
+            def generate_json(self, *, system: str, user: str) -> dict:
+                if "evidence sufficiency gate" in system:
+                    return {"supported": "BLUEBIRD" in user}
+                match = re.search(r"chunk_id=(\d+)", user)
+                if match is None:
+                    raise AssertionError("missing chunk id in evaluation prompt")
+                return {
+                    "answer": "The code is BLUEBIRD.",
+                    "abstain": False,
+                    "citations": [
+                        {
+                            "chunk_id": int(match.group(1)),
+                            "quote": "Legacy secret code is BLUEBIRD.",
+                        }
+                    ],
+                }
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "isolation.jsonl"
+            rows = [
+                {
+                    "id": "first",
+                    "language": "en",
+                    "source_text": "Legacy secret code is BLUEBIRD.",
+                    "question": "What is the legacy secret code?",
+                    "required_evidence_substring": "Legacy secret code is BLUEBIRD.",
+                },
+                {
+                    "id": "second",
+                    "language": "en",
+                    "source_text": "Maintenance occurs every Sunday.",
+                    "question": "What is the legacy secret code?",
+                    "expected_abstain": True,
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(row) for row in rows) + "\n",
+                encoding="utf-8",
+            )
+            report = run_evaluation(str(path), IsolationModel())
+
+        self.assertEqual(report["passed"], 2)
+        self.assertTrue(report["results"][1]["abstain"])
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -19,6 +18,8 @@ class EvalResult:
     passed: bool
     abstain: bool
     citation_count: int
+    answer_attempt_count: int
+    verified_quotes: tuple[str, ...]
     reason: str
 
 
@@ -33,8 +34,19 @@ def load_cases(path: str | Path) -> list[dict]:
             expected_abstain = value.get("expected_abstain", False)
             if not isinstance(expected_abstain, bool):
                 raise ValueError(f"expected_abstain must be boolean: {line[:80]}")
-            if not expected_abstain and not isinstance(value.get("required_evidence_substring"), str):
-                raise ValueError(f"grounded case needs required_evidence_substring: {line[:80]}")
+            if not expected_abstain:
+                single = value.get("required_evidence_substring")
+                multiple = value.get("required_evidence_substrings")
+                single_ok = isinstance(single, str) and bool(single.strip())
+                multiple_ok = (
+                    isinstance(multiple, list)
+                    and bool(multiple)
+                    and all(isinstance(item, str) and item.strip() for item in multiple)
+                )
+                if not (single_ok or multiple_ok):
+                    raise ValueError(
+                        f"grounded case needs required evidence substring(s): {line[:80]}"
+                    )
             rows.append(value)
     if not rows:
         raise ValueError("evaluation dataset is empty")
@@ -53,6 +65,8 @@ def evaluate_case(case: dict, service: EvidenceService) -> EvalResult:
             passed=False,
             abstain=False,
             citation_count=0,
+            answer_attempt_count=0,
+            verified_quotes=(),
             reason=f"rejected model output: {exc}",
         )
 
@@ -61,14 +75,19 @@ def evaluate_case(case: dict, service: EvidenceService) -> EvalResult:
         passed = result.abstain and not result.citations
         reason = "correct abstention" if passed else "expected abstention but model answered"
     else:
-        required = " ".join(case["required_evidence_substring"].split())
+        raw_required = case.get("required_evidence_substrings")
+        if raw_required is None:
+            raw_required = [case["required_evidence_substring"]]
+        required = [" ".join(item.split()) for item in raw_required]
         cited = " ".join(
             " ".join(citation["quote"].split())
             for citation in result.citations
         )
-        passed = not result.abstain and required in cited
+        passed = not result.abstain and all(item in cited for item in required)
         reason = "grounded evidence found" if passed else (
-            "unexpected abstention" if result.abstain else "required evidence was not cited"
+            "unexpected abstention"
+            if result.abstain
+            else "required evidence was not fully cited"
         )
     return EvalResult(
         case_id=case["id"],
@@ -76,6 +95,10 @@ def evaluate_case(case: dict, service: EvidenceService) -> EvalResult:
         passed=passed,
         abstain=result.abstain,
         citation_count=len(result.citations),
+        answer_attempt_count=int(result.ledger.get("answer_attempt_count", 0)),
+        verified_quotes=tuple(
+            str(citation["quote"]) for citation in result.citations
+        ),
         reason=reason,
     )
 
@@ -84,9 +107,13 @@ def run_evaluation(dataset: str, client: ApertusClient) -> dict:
     cases = load_cases(dataset)
     results: list[EvalResult] = []
     with tempfile.TemporaryDirectory() as tmp:
-        with EvidenceStore(Path(tmp) / "eval.db") as store:
-            service = EvidenceService(store, client)
-            for case in cases:
+        for index, case in enumerate(cases):
+            # Each case gets a fresh store. Reusing one index across cases can
+            # leak evidence from an earlier case into a later retrieval and
+            # produce a falsely grounded result.
+            db_path = Path(tmp) / f"case-{index:04d}.db"
+            with EvidenceStore(db_path) as store:
+                service = EvidenceService(store, client)
                 results.append(evaluate_case(case, service))
 
     passed = sum(item.passed for item in results)
@@ -95,6 +122,10 @@ def run_evaluation(dataset: str, client: ApertusClient) -> dict:
         "cases": len(results),
         "passed": passed,
         "grounded_accuracy": passed / len(results),
+        "total_answer_attempts": sum(item.answer_attempt_count for item in results),
+        "cases_with_answer_repair": sum(
+            1 for item in results if item.answer_attempt_count > 1
+        ),
         "results": [asdict(item) for item in results],
     }
 
@@ -102,9 +133,9 @@ def run_evaluation(dataset: str, client: ApertusClient) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", default="eval/multilingual.jsonl")
-    parser.add_argument("--base-url", default=os.getenv("LLM_BASE_URL", os.getenv("APERTUS_BASE_URL", "http://localhost:8000/v1")))
-    parser.add_argument("--model", default=os.getenv("LLM_NAME", os.getenv("APERTUS_MODEL", "swiss-ai/Apertus-v1.5-8B")))
-    parser.add_argument("--api-key", default=os.getenv("LLM_API_KEY") or os.getenv("APERTUS_API_KEY"))
+    parser.add_argument("--base-url", default="http://localhost:8000/v1")
+    parser.add_argument("--model", default="swiss-ai/Apertus-v1.5-8B")
+    parser.add_argument("--api-key")
     parser.add_argument("--out")
     args = parser.parse_args()
 

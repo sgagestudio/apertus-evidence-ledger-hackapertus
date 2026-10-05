@@ -181,9 +181,9 @@ class EvidenceRequestHandler(BaseHTTPRequestHandler):
 
         db_path = os.getenv("APERTUS_EVIDENCE_DB", "evidence.db")
         client = ApertusClient(
-            base_url=os.getenv("LLM_BASE_URL", os.getenv("APERTUS_BASE_URL", "http://localhost:8000/v1")),
-            model=os.getenv("LLM_NAME", os.getenv("APERTUS_MODEL", "swiss-ai/Apertus-v1.5-8B")),
-            api_key=os.getenv("LLM_API_KEY") or os.getenv("APERTUS_API_KEY"),
+            base_url=os.getenv("APERTUS_BASE_URL", "http://localhost:8000/v1"),
+            model=os.getenv("APERTUS_MODEL", "swiss-ai/Apertus-v1.5-8B"),
+            api_key=os.getenv("APERTUS_API_KEY"),
         )
 
         try:
