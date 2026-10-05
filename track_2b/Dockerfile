@@ -13,6 +13,7 @@ COPY src ./src
 RUN python -m pip install --no-cache-dir --no-build-isolation .
 
 COPY data ./data
+COPY tests ./tests
 RUN apertus-evidence --db /app/demo.db ingest /app/data/sample-policy.md \
     && useradd --system --uid 10001 appuser \
     && chown -R appuser:appuser /app
