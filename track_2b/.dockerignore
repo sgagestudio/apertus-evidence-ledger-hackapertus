@@ -12,5 +12,4 @@ __pycache__
 .env.*
 !/.env.example
 docs
-tests
 data/eval/results
