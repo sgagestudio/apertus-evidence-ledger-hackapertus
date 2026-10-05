@@ -18,5 +18,5 @@ run: build
 		-e LLM_API_KEY="$(LLM_API_KEY)" \
 		$(IMAGE)
 
-test:
+test: build
 	docker run --rm --entrypoint python $(IMAGE) -m unittest discover -s /app/tests -v
