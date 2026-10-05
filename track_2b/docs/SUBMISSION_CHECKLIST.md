@@ -34,15 +34,15 @@ The organizer states that the final submission is handled through the Hack Apert
 ## Before final submission
 
 - [x] Add and run a small multi-chunk set requiring multiple verified evidence facts.
-- [ ] Re-run clean-clone unit tests.
-- [ ] Re-run real Apertus evaluation and freeze the final result.
+- [x] Re-run clean-checkout unit tests: 20/20 pass in the GitHub Actions Judge Gate.
+- [x] Re-run real Apertus evaluation with per-case isolation and freeze regression (17/18), holdout (12/12), and multi-evidence (3/3) summaries.
 - [ ] Capture final browser screenshots using synthetic data only.
 - [ ] Record the demo using `docs/DEMO_SCRIPT.md` and keep it under the organizer's 2-minute maximum.
-- [ ] Convert/finalize `technical_report.md` to `track_2b/TeamName_Report.pdf` (PDF, max 6 pages).
+- [x] Finalize the technical report PDF as `track_2b/sgagestudio_Report.pdf` (3 pages, visually inspected, under the 6-page maximum).
 - [ ] Check the organizer submission form for any newly added fields.
-- [ ] Verify public repository visibility and README from an unauthenticated view.
+- [x] Verify the submission repository is public and the judge package is readable through the public GitHub API.
 - [ ] Verify all submission links work.
-- [ ] Confirm no secrets, private data, employer material, or personal documents are in the repository/video/report.
+- [x] Repository/report data review and tracked-file secret scan completed with 0 secret-pattern findings; synthetic evaluation/sample data only. Re-check the final video before publishing.
 - [ ] Submit through the organizer's official submission page before the deadline.
 
 ## Final facts to use consistently
