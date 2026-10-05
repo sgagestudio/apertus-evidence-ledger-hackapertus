@@ -1,16 +1,16 @@
 # Demo Script — Apertus Evidence Ledger
 
-Target length: 2–3 minutes.
+Target length: **under 2 minutes** (organizer maximum: 2 minutes).
 
 ## Before recording
 
 - Use only the synthetic sample/evaluation documents in this repository.
 - Do not show API keys, environment-variable values, browser profiles, personal files, or unrelated terminals.
-- Start the local Apertus endpoint and index `examples/sample-policy.md`.
+- Start the local Apertus endpoint and index `data/sample-policy.md`.
 - Start `apertus-evidence-web` on `127.0.0.1:8787`.
-- Keep the repository and `docs/TECHNICAL_REPORT.md` ready for the final section.
+- Keep the repository and `technical_report.md` ready for the final section.
 
-## 0:00–0:20 — Problem
+## 0:00–0:12 — Problem
 
 Say:
 
@@ -18,7 +18,7 @@ Say:
 
 Show the browser UI header.
 
-## 0:20–0:45 — Local / sovereign architecture
+## 0:12–0:27 — Local / sovereign architecture
 
 Say:
 
@@ -26,7 +26,7 @@ Say:
 
 Briefly show the architecture section in the README or technical report.
 
-## 0:45–1:25 — Grounded answer
+## 0:27–0:52 — Grounded answer
 
 Ask:
 
@@ -48,7 +48,7 @@ Say:
 
 > Apertus generates the language answer, but deterministic code decides whether the citation is acceptable. Unknown chunk IDs and fabricated quotes are rejected.
 
-## 1:25–1:50 — Abstention
+## 0:52–1:10 — Abstention
 
 Ask a question not answered by the document, for example:
 
@@ -60,36 +60,39 @@ Say:
 
 > The first Apertus pass is an evidence-sufficiency gate. If the retrieved evidence does not contain the requested fact, the system abstains instead of asking the answer generator to guess.
 
-## 1:50–2:15 — Untrusted document content
+## 1:10–1:32 — Untrusted document content
 
-Show `eval/multilingual.jsonl` or the evaluation summary.
+Show `data/eval/multilingual.jsonl` or the evaluation summary.
 
 Say:
 
 > Retrieved documents are treated as untrusted data. The regression suite includes malicious text inside documents that tells the model to ignore system rules and invent missing facts. Those cases must still abstain.
 
-Show `eval/results/2026-10-05-apertus-local-q4.json`.
+Show `data/eval/results/2026-10-06-apertus-local-isolated-regression.json` and briefly mention the companion holdout and multi-evidence summaries.
 
 Current validated result:
 
-- 18 / 18 real-model regression cases;
-- 6 grounded answers;
-- 6 missing-information abstentions;
-- 6 document prompt-injection abstentions;
-- 6 languages: English, Spanish, German, French, Italian and Romansh;
-- 15 / 15 software tests.
+- 17 / 18 isolated real-model regression cases;
+- 12 / 12 unchanged holdout cases;
+- 3 / 3 multi-evidence cases;
+- 19 / 19 software tests;
+- 6 languages: English, Spanish, German, French, Italian and Romansh.
+
+Add:
+
+> One supported Romansh regression answer is counted as a miss because its generated quote did not exactly match the retrieved source. The verifier rejected it instead of accepting an unverifiable citation.
 
 Add:
 
 > This is a small synthetic engineering regression suite, not a claim of general 100 percent model accuracy.
 
-## 2:15–2:40 — Why Apertus
+## 1:32–1:48 — Why Apertus
 
 Say:
 
 > Apertus is used where probabilistic language reasoning is useful. Retrieval integrity, hashing and citation acceptance remain deterministic. The full pipeline can run locally; during development Apertus 1.5 8B ran quantized on a 16 GB consumer GPU.
 
-## 2:40–3:00 — Close
+## 1:48–2:00 — Close
 
 Say:
 

@@ -75,16 +75,19 @@ A non-abstaining answer is accepted only when every citation:
 
 Retrieved document content is treated as untrusted data. Instructions embedded inside evidence do not supersede the system contract.
 
-Current real-model regression result:
+Current real-model validation with per-case evaluation isolation:
 
-- **18 / 18** cases passed;
-- 6 grounded supported questions;
-- 6 missing-information abstentions;
-- 6 retrieved-document prompt-injection abstentions;
+- **17 / 18** regression cases passed;
+- 5 / 6 grounded supported questions;
+- 6 / 6 missing-information abstentions;
+- 6 / 6 retrieved-document prompt-injection abstentions;
+- the single regression miss is a supported Romansh case whose generated citation was rejected because the quote was not an exact substring of the retrieved source;
+- **12 / 12** unchanged holdout cases passed;
+- **3 / 3** multi-evidence cases passed, each requiring two separated facts and verified citations;
 - English, Spanish, German, French, Italian and Romansh;
-- **15 / 15** software tests.
+- **19 / 19** software tests.
 
-This is a small synthetic engineering regression suite, **not** a claim of general 100% Apertus accuracy.
+A historical pre-isolation run passed 18 / 18 and remains in the repository as an earlier artifact. It is not used as the current headline result after the evaluator was strengthened. These are small synthetic engineering checks, **not** claims of general Apertus accuracy.
 
 ## Sovereign deployment
 

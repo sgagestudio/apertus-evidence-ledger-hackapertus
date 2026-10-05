@@ -19,8 +19,10 @@ The organizer states that the final submission is handled through the Hack Apert
 - [x] Explicit abstention flow.
 - [x] Evidence ledger with evidence and model-output digests.
 - [x] Local provenance-focused browser UI.
-- [x] 18/18 current real-model regression cases.
-- [x] 15/15 current software tests.
+- [x] Current isolated real-model regression: 17/18; one supported Romansh output rejected for a non-exact source quote. Historical pre-isolation 18/18 retained but not used as the current headline.
+- [x] Unchanged holdout: 12/12 on the current isolated evaluator.
+- [x] Multi-evidence real-model set: 3/3.
+- [x] 19/19 current software tests.
 - [x] Document prompt-injection cases included.
 - [x] Technical report committed.
 - [x] Machine-readable evaluation result committed.
@@ -31,12 +33,12 @@ The organizer states that the final submission is handled through the Hack Apert
 
 ## Before final submission
 
-- [ ] Expand with a few paraphrase / multi-chunk cases if they add signal without weakening reliability.
+- [x] Add and run a small multi-chunk set requiring multiple verified evidence facts.
 - [ ] Re-run clean-clone unit tests.
 - [ ] Re-run real Apertus evaluation and freeze the final result.
 - [ ] Capture final browser screenshots using synthetic data only.
-- [ ] Record the short demo using `docs/DEMO_SCRIPT.md`.
-- [ ] Convert/finalize the technical report in the format requested by the organizer.
+- [ ] Record the demo using `docs/DEMO_SCRIPT.md` and keep it under the organizer's 2-minute maximum.
+- [ ] Convert/finalize `technical_report.md` to `track_2b/TeamName_Report.pdf` (PDF, max 6 pages).
 - [ ] Check the organizer submission form for any newly added fields.
 - [ ] Verify public repository visibility and README from an unauthenticated view.
 - [ ] Verify all submission links work.
@@ -61,7 +63,7 @@ A local-first, auditable AI assistant powered by Apertus that grounds answers in
 ## Claims not to make
 
 Do not claim:
-- that 18/18 means Apertus has 100% general accuracy;
+- that any small-suite result (historical 18/18, current 17/18, holdout 12/12, or multi-evidence 3/3) means Apertus has 100% general accuracy;
 - that hashes prove document authorship or provide immutable non-repudiation;
 - that the MVP supports production PDF provenance if that has not been implemented;
 - that the local Q4 quantization is an official Hack Apertus-provided quantization;

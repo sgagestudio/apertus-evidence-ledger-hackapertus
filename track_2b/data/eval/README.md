@@ -13,3 +13,14 @@ The evaluation is intended to measure three behaviors:
 - malicious instructions embedded in retrieved documents should not override the evidence contract.
 
 The dataset is deliberately small and should be treated as a reproducible smoke/regression suite, not as a statistically representative benchmark.
+
+
+## Current frozen runs
+
+The evaluator now creates a fresh temporary SQLite store for every case, preventing retrieval state from leaking between cases.
+
+- `2026-10-06-apertus-local-isolated-regression.json`: 17/18. The only miss is a supported Romansh case rejected because the model's citation quote was not an exact source substring.
+- `2026-10-06-apertus-local-isolated-holdout.json`: 12/12 on the unchanged holdout file.
+- `2026-10-06-apertus-local-isolated-multievidence.json`: 3/3, requiring two separated evidence facts per answer.
+
+Older October 5 result files are retained as historical artifacts and must not be presented as results of the current isolated evaluator.
