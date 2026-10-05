@@ -1,13 +1,13 @@
-# Technical report — Apertus Evidence Ledger
+﻿# Technical report â€” Apertus Evidence Ledger
 
-- **Track:** Track 2B — Apertus Adoption: Own Project
+- **Track:** Track 2B â€” Apertus Adoption: Own Project
 - **Event:** Hack Apertus Online 2026
-- **Team:** sgagestudio — solo
+- **Team:** sgagestudio â€” solo
 - **Demo:** to be added before final submission
 
 ## 1. Summary
 
-Apertus Evidence Ledger is a local-first document question-answering prototype for workflows where a plausible answer is not enough. Local deterministic components ingest documents, split them into reproducible chunks, fingerprint each chunk with SHA-256, and retrieve evidence with SQLite FTS5. Apertus then performs two language tasks: an evidence-sufficiency decision and, only when evidence is sufficient, answer synthesis. Deterministic code accepts the answer only when every cited chunk was retrieved for the question and every quoted citation is an exact substring of that chunk. Each accepted result emits an evidence ledger with evidence and model-output digests. The latest real local Apertus run on the current per-case-isolated evaluator passes 17/18 regression cases, 12/12 unchanged holdout cases, and 3/3 multi-evidence cases; the software suite passes 19/19 tests. The single regression miss is a supported Romansh case whose generated citation failed the exact-source-quote contract and was rejected rather than silently accepted. A historical pre-isolation run passed 18/18 and is retained only as an earlier artifact. These are engineering checks, not a general model-accuracy claim.
+Apertus Evidence Ledger is a local-first document question-answering prototype for workflows where a plausible answer is not enough. Local deterministic components ingest documents, split them into reproducible chunks, fingerprint each chunk with SHA-256, and retrieve evidence with SQLite FTS5. Apertus then performs two language tasks: an evidence-sufficiency decision and, only when evidence is sufficient, answer synthesis. Deterministic code accepts the answer only when every cited chunk was retrieved for the question and every quoted citation is an exact substring of that chunk. Each accepted result emits an evidence ledger with evidence and model-output digests. The latest real local Apertus run on the current per-case-isolated evaluator passes 17/18 regression cases, 12/12 unchanged holdout cases, and 3/3 multi-evidence cases; the software suite passes 20/20 tests. The single regression miss is a supported Romansh case whose generated citation failed the exact-source-quote contract and was rejected rather than silently accepted. A historical pre-isolation run passed 18/18 and is retained only as an earlier artifact. These are engineering checks, not a general model-accuracy claim.
 
 ## 2. Architecture
 
@@ -115,7 +115,7 @@ An unsupported/adversarial case passes only when the system abstains and returns
 | Current isolated pipeline | complete synthetic regression set | 17 / 18 |
 | Current isolated pipeline | unchanged holdout set | 12 / 12 |
 | Current isolated pipeline | multi-evidence set | 3 / 3 |
-| Software regression suite | unit/integration-style tests | 19 / 19 |
+| Software regression suite | unit/integration-style tests | 20 / 20 |
 
 An intermediate 12-case run scored 11/12 because the support gate was too conservative on one supported Romansh case. The fix was general rather than case-specific: the gate was instructed to judge whether evidence answers the question in its own language, including low-resource languages. A later pre-isolation 18-case run passed 18/18. After the evaluator was strengthened so every case gets a fresh SQLite store, the current run scores 17/18: the Romansh backup question is supported, but its generated citation is not an exact source substring, so deterministic verification rejects it. This is counted as a miss and demonstrates fail-closed citation handling rather than being hidden.
 
@@ -201,3 +201,4 @@ This report and project documentation are licensed under **Creative Commons Attr
 - swiss-ai Apertus v1.5 model collection.
 - Apertus: Democratizing Open and Compliant LLMs.
 - SQLite FTS5 documentation.
+

@@ -1,6 +1,6 @@
-# Hack Apertus Submission Checklist
+﻿# Hack Apertus Submission Checklist
 
-Track: **2B — Apertus Adoption: Own Project**  
+Track: **2B â€” Apertus Adoption: Own Project**  
 Project: **Apertus Evidence Ledger**  
 Deadline: **16 October 2026, 12:00 CEST**
 
@@ -22,7 +22,7 @@ The organizer states that the final submission is handled through the Hack Apert
 - [x] Current isolated real-model regression: 17/18; one supported Romansh output rejected for a non-exact source quote. Historical pre-isolation 18/18 retained but not used as the current headline.
 - [x] Unchanged holdout: 12/12 on the current isolated evaluator.
 - [x] Multi-evidence real-model set: 3/3.
-- [x] 19/19 current software tests.
+- [x] 20/20 current software tests.
 - [x] Document prompt-injection cases included.
 - [x] Technical report committed.
 - [x] Machine-readable evaluation result committed.
@@ -68,3 +68,4 @@ Do not claim:
 - that the MVP supports production PDF provenance if that has not been implemented;
 - that the local Q4 quantization is an official Hack Apertus-provided quantization;
 - that a hosted public demo exists unless one is actually deployed.
+

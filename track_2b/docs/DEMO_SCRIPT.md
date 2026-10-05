@@ -1,4 +1,4 @@
-# Demo Script — Apertus Evidence Ledger
+﻿# Demo Script â€” Apertus Evidence Ledger
 
 Target length: **under 2 minutes** (organizer maximum: 2 minutes).
 
@@ -10,7 +10,7 @@ Target length: **under 2 minutes** (organizer maximum: 2 minutes).
 - Start `apertus-evidence-web` on `127.0.0.1:8787`.
 - Keep the repository and `technical_report.md` ready for the final section.
 
-## 0:00–0:12 — Problem
+## 0:00â€“0:12 â€” Problem
 
 Say:
 
@@ -18,7 +18,7 @@ Say:
 
 Show the browser UI header.
 
-## 0:12–0:27 — Local / sovereign architecture
+## 0:12â€“0:27 â€” Local / sovereign architecture
 
 Say:
 
@@ -26,7 +26,7 @@ Say:
 
 Briefly show the architecture section in the README or technical report.
 
-## 0:27–0:52 — Grounded answer
+## 0:27â€“0:52 â€” Grounded answer
 
 Ask:
 
@@ -48,7 +48,7 @@ Say:
 
 > Apertus generates the language answer, but deterministic code decides whether the citation is acceptable. Unknown chunk IDs and fabricated quotes are rejected.
 
-## 0:52–1:10 — Abstention
+## 0:52â€“1:10 â€” Abstention
 
 Ask a question not answered by the document, for example:
 
@@ -60,7 +60,7 @@ Say:
 
 > The first Apertus pass is an evidence-sufficiency gate. If the retrieved evidence does not contain the requested fact, the system abstains instead of asking the answer generator to guess.
 
-## 1:10–1:32 — Untrusted document content
+## 1:10â€“1:32 â€” Untrusted document content
 
 Show `data/eval/multilingual.jsonl` or the evaluation summary.
 
@@ -75,7 +75,7 @@ Current validated result:
 - 17 / 18 isolated real-model regression cases;
 - 12 / 12 unchanged holdout cases;
 - 3 / 3 multi-evidence cases;
-- 19 / 19 software tests;
+- 20 / 20 software tests;
 - 6 languages: English, Spanish, German, French, Italian and Romansh.
 
 Add:
@@ -86,13 +86,13 @@ Add:
 
 > This is a small synthetic engineering regression suite, not a claim of general 100 percent model accuracy.
 
-## 1:32–1:48 — Why Apertus
+## 1:32â€“1:48 â€” Why Apertus
 
 Say:
 
 > Apertus is used where probabilistic language reasoning is useful. Retrieval integrity, hashing and citation acceptance remain deterministic. The full pipeline can run locally; during development Apertus 1.5 8B ran quantized on a 16 GB consumer GPU.
 
-## 1:48–2:00 — Close
+## 1:48â€“2:00 â€” Close
 
 Say:
 
@@ -112,3 +112,4 @@ The final video should visibly demonstrate:
 - the public repository name.
 
 Do not claim the small synthetic evaluation is a general Apertus benchmark.
+
