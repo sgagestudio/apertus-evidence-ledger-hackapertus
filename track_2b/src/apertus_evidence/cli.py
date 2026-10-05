@@ -59,7 +59,7 @@ def main() -> int:
             )
             return 0
 
-        api_key = os.getenv(args.api_key_env) if args.api_key_env else None
+        api_key = (os.getenv(args.api_key_env) if args.api_key_env else None) or os.getenv("APERTUS_API_KEY")
         client = ApertusClient(
             base_url=args.base_url,
             model=args.model,
