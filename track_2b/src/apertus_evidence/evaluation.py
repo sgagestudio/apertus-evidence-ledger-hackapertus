@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -101,9 +102,9 @@ def run_evaluation(dataset: str, client: ApertusClient) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", default="eval/multilingual.jsonl")
-    parser.add_argument("--base-url", default="http://localhost:8000/v1")
-    parser.add_argument("--model", default="swiss-ai/Apertus-v1.5-8B")
-    parser.add_argument("--api-key")
+    parser.add_argument("--base-url", default=os.getenv("LLM_BASE_URL", os.getenv("APERTUS_BASE_URL", "http://localhost:8000/v1")))
+    parser.add_argument("--model", default=os.getenv("LLM_NAME", os.getenv("APERTUS_MODEL", "swiss-ai/Apertus-v1.5-8B")))
+    parser.add_argument("--api-key", default=os.getenv("LLM_API_KEY") or os.getenv("APERTUS_API_KEY"))
     parser.add_argument("--out")
     args = parser.parse_args()
 
