@@ -36,7 +36,7 @@ The organizer states that the final submission is handled through the Hack Apert
 - [x] Add and run a small multi-chunk set requiring multiple verified evidence facts.
 - [x] Re-run clean-checkout unit tests: 20/20 pass in the GitHub Actions Judge Gate.
 - [x] Re-run real Apertus evaluation with per-case isolation and freeze regression (17/18), holdout (12/12), and multi-evidence (3/3) summaries.
-- [ ] Capture final browser screenshots using synthetic data only.
+- [x] Capture final browser screenshots using synthetic data only: real local Apertus VERIFIED and ABSTAINED states, cropped to the project document surface only.
 - [ ] Record the demo using `docs/DEMO_SCRIPT.md` and keep it under the organizer's 2-minute maximum.
 - [x] Finalize the technical report PDF as `track_2b/sgagestudio_Report.pdf` (3 pages, visually inspected, under the 6-page maximum).
 - [ ] Check the organizer submission form for any newly added fields.
