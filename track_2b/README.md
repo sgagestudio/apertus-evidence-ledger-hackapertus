@@ -37,6 +37,7 @@ For a local Apertus server on the host machine, the default `LLM_BASE_URL` is `h
 - [Current isolated holdout result](data/eval/results/2026-10-06-apertus-local-isolated-holdout.json) — 12/12.
 - [Current multi-evidence result](data/eval/results/2026-10-06-apertus-local-isolated-multievidence.json) — 3/3.
 - [Final real-model submission smoke](data/eval/results/2026-10-06-final-submission-smoke.json) — grounded answer verified and unsupported question abstained.
+- [Final demo video](https://github.com/sgagestudio/apertus-evidence-ledger-hackapertus/releases/download/hack-apertus-demo-v1/Apertus_Evidence_Ledger_Demo.mp4) — 112.6 s, 1280×720 H.264/AAC, independently re-downloaded and decoded successfully.
 
 ## Input / output contract
 
