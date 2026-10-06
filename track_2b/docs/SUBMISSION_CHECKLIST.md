@@ -37,13 +37,13 @@ The organizer states that the final submission is handled through the Hack Apert
 - [x] Re-run clean-checkout unit tests: 20/20 pass in the GitHub Actions Judge Gate.
 - [x] Re-run real Apertus evaluation with per-case isolation and freeze regression (17/18), holdout (12/12), and multi-evidence (3/3) summaries.
 - [x] Capture final browser screenshots using synthetic data only: real local Apertus VERIFIED and ABSTAINED states, cropped to the project document surface only.
-- [ ] Record the demo using `docs/DEMO_SCRIPT.md` and keep it under the organizer's 2-minute maximum.
+- [x] Publish the final demo: 112.6 s, 1280×720 H.264/AAC; public release asset anonymously re-downloaded, SHA-256 matched, and decoded without errors.
 - [x] Finalize the technical report PDF as `track_2b/sgagestudio_Report.pdf` (3 pages, visually inspected, under the 6-page maximum).
-- [ ] Check the organizer submission form for any newly added fields.
+- [x] Inspect the live Track 2B organizer form: required fields and selectors verified; dataset/Hugging Face username/message are optional; Terms acceptance + SUBMIT remain owner-only.
 - [x] Verify the submission repository is public and the judge package is readable through the public GitHub API.
-- [x] Verify public repository, report PDF, evaluation artifacts, and final-smoke paths exist in the current public repo. Demo URL remains pending until the video is published.
+- [x] Verify public repository, report PDF, evaluation artifacts, final-smoke paths, and public demo URL. Demo asset was anonymously downloaded and its SHA-256 matched the uploaded release asset.
 - [x] Repository/report data review and tracked-file secret scan completed with 0 secret-pattern findings; synthetic evaluation/sample data only. Re-check the final video before publishing.
-- [ ] Submit through the organizer's official submission page before the deadline.
+- [ ] Owner reviews the prepared form, accepts the Terms and Conditions, and clicks SUBMIT before the deadline.
 
 ## Final facts to use consistently
 
