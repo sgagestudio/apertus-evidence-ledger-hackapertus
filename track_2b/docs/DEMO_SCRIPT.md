@@ -1,7 +1,8 @@
 # Demo Script — Apertus Evidence Ledger
 
 Target: **under 2 minutes** (organizer maximum: 2 minutes).  
-Spoken copy: about **206 words**, leaving time for UI navigation and model latency cuts.
+Final published demo: **112.6 seconds**, 1280×720 H.264/AAC.  
+Public URL: https://github.com/sgagestudio/apertus-evidence-ledger-hackapertus/releases/download/hack-apertus-demo-v1/Apertus_Evidence_Ledger_Demo.mp4
 
 ## Before recording
 
